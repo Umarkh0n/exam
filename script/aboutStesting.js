@@ -49,6 +49,7 @@ const renderStesting = (item) => {
 </div>
     
     `
+    
     stestingList.insertAdjacentHTML('beforeend', html)
 
 

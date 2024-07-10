@@ -76,14 +76,14 @@ const renderPublications = (arr) => {
     <div>
         <img class="px-[15px] min-w-[200px]" src="${item.image_url}"  alt="">
     </div>
-    <div class="flex-col justify-between px-[15px] max-w[730px]">
+    <div class="flex flex-col justify-between px-[15px] max-w[730px]">
         <h2 class="text-2xl font-semibold">
             ${item.title}
         </h2>
         <p class="text-lg text-[#73777d">
             ${item.description}
         </p>
-        <a href="${item.file_url}" target="_blank">
+        <a class="max-w-[175px]" href="${item.file_url}" target="_blank">
         <button class="flex items-center py-3 px-[43px] bg-[#4f95ff] text-white gap-1 transition hover:bg-[#1064b2]">
         <svg data-v-01251ed5="" width="24" height="24" viewBox="0 0 24 24" fill="none"
             xmlns="http://www.w3.org/2000/svg" class="inline">

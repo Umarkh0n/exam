@@ -7,14 +7,16 @@ const responsiveMenu = document.querySelector('.responsive-menu')
 const hamburgerIcon = document.querySelector('.hamburger-icon')
 const xIcon = document.querySelector('.icon-x')
 const elMain = document.querySelector('.main')
+const elAutocountedBox = document.querySelector('.autocounted-box')
 
 let loading = false
 
-const reguestIndex = () =>
+const reguestIndex = () =>{
      loading = true
     elLoadingAnimation.classList.remove("hidden")
     fetch('https://qlapi.stesting.uz/api/v1/index/').then(res => res.json()).then(data => {
         renderSection(data)
+        autocounter(data.statistics.participants)
         loading = false
         elLoadingAnimation.classList.add("hidden")}).catch(error => {
         loading = true
@@ -25,6 +27,7 @@ const reguestIndex = () =>
         elBoxList.style.textAlign = 'center'
         console.log(error);
     })
+}
 
 const renderSection = (arr) => {
     const html = `
@@ -39,8 +42,37 @@ const renderSection = (arr) => {
     `
     elTutorialVideoLeft.insertAdjacentHTML('afterbegin', html)
 
-    elAboutStesting.textContent = arr.short_description
+    const htmll = `
+    <div class="text-center py-4 min-w-[246px] shadow font-semibold">
+    <p id="counter" class=" text-5xl text-[#4f95ff] mt-3">
+        ${arr.statistics.registered}
+    </p>    
+    <p class="text-[19px] mt-3">
+        Ученики
+    </p>
+</div>
+<div class="text-center py-4 min-w-[246px] shadow font-semibold">
+    <p id="counterr"  class="text-5xl text-[#4f95ff] mt-3">
+        ${arr.statistics.participants}
+    </p>
+    <p class="text-[19px] mt-3">
+        Школы
+    </p>
+</div>
+<div class="text-center py-4 min-w-[246px] shadow font-semibold">
+    <p class="text-5xl text-[#4f95ff] mt-3">
+        ${arr.statistics.tests}
+    </p>
+    <p class="text-[19px] mt-3">
+        Задания
+    </p>
+</div>
+    `
 
+    elAutocountedBox.insertAdjacentHTML('beforeend', htmll)
+
+    elAboutStesting.textContent = arr.short_description
+    
     for (let item of arr.research) {
 
         const htmll = `
@@ -109,7 +141,7 @@ const renderSection = (arr) => {
             
             `
 
-    elVideoLesson.insertAdjacentHTML('beforeend', lesson)
+    elVideoLesson.insertAdjacentHTML('beforeend', lesson)        
 }
 
 hamburgerIcon.addEventListener('click', () => {
