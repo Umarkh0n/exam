@@ -16,15 +16,15 @@ const reguestIndex = () =>{
     elLoadingAnimation.classList.remove("hidden")
     fetch('https://qlapi.stesting.uz/api/v1/index/').then(res => res.json()).then(data => {
         renderSection(data)
-        autocounter(data.statistics.participants)
+        autocounter(data.statistics)
         loading = false
         elLoadingAnimation.classList.add("hidden")}).catch(error => {
         loading = true
         elLoadingAnimation.classList.add("hidden")
-        elBoxList.textContent = "Xatolik bor"
-        elBoxList.style.fontSize = '40px'
-        elBoxList.style.color = 'red'
-        elBoxList.style.textAlign = 'center'
+        elMain.textContent = "Xatolik bor"
+        elMain.style.fontSize = '40px'
+        elMain.style.color = 'red'
+        elMain.style.textAlign = 'center'
         console.log(error);
     })
 }
@@ -33,7 +33,7 @@ const renderSection = (arr) => {
     const html = `
         <p class=" text-[51px] leading-tight font-semibold relative">
             <img class="absolute ml-[80px] hidden md:block " src="https://stesting.uz/wrap1.png" alt="">    
-            <span class="">${arr.registration.title}</span>
+            <span class="z-10 relative">${arr.registration.title}</span>
         </p>
     <p class="text-lg mt-[40px] ">
         ${arr.registration.description}
@@ -41,36 +41,6 @@ const renderSection = (arr) => {
     
     `
     elTutorialVideoLeft.insertAdjacentHTML('afterbegin', html)
-
-    const htmll = `
-    <div class="text-center py-4 min-w-[246px] shadow font-semibold">
-    <p id="counter" class=" text-5xl text-[#4f95ff] mt-3">
-        ${arr.statistics.registered}
-    </p>    
-    <p class="text-[19px] mt-3">
-        Ученики
-    </p>
-</div>
-<div class="text-center py-4 min-w-[246px] shadow font-semibold">
-    <p id="counterr"  class="text-5xl text-[#4f95ff] mt-3">
-        ${arr.statistics.participants}
-    </p>
-    <p class="text-[19px] mt-3">
-        Школы
-    </p>
-</div>
-<div class="text-center py-4 min-w-[246px] shadow font-semibold">
-    <p class="text-5xl text-[#4f95ff] mt-3">
-        ${arr.statistics.tests}
-    </p>
-    <p class="text-[19px] mt-3">
-        Задания
-    </p>
-</div>
-    `
-
-    elAutocountedBox.insertAdjacentHTML('beforeend', htmll)
-
     elAboutStesting.textContent = arr.short_description
     
     for (let item of arr.research) {
@@ -143,6 +113,69 @@ const renderSection = (arr) => {
 
     elVideoLesson.insertAdjacentHTML('beforeend', lesson)        
 }
+
+const autocounterObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            updateCounters();
+            observer.unobserve(entry.target); // Stop observing once it's visible
+        }
+    });
+}, {
+    threshold: 0.5 // Trigger when 50% of the element is visible
+});
+
+autocounterObserver.observe(elAutocountedBox); 
+
+const autocounter = (statistics) => {
+    const counterElement = document.getElementById('counter');
+    const counterrElement = document.getElementById('counterr');
+    const counterrrElement = document.getElementById('counterrr');
+
+    const duration = 500000000000; 
+    const interval = 100; 
+
+    const stepRegistered = Math.ceil(statistics.registered / (duration / interval));
+    const stepParticipants = Math.ceil(statistics.participants / (duration / interval));
+    const stepTests = Math.ceil(statistics.tests / (duration / interval));
+
+    let currentRegistered = 0;
+    let currentParticipants = 0;
+    let currentTests = 0;
+
+    const updateCounters = () => {
+        currentRegistered += stepRegistered;
+        currentParticipants += stepParticipants;
+        currentTests += stepTests;
+
+        
+        counterElement.textContent = currentRegistered.toLocaleString();
+        counterrElement.textContent = currentParticipants.toLocaleString();
+        counterrrElement.textContent = currentTests.toLocaleString();
+
+        if (currentRegistered >= statistics.registered) {
+            counterElement.textContent = statistics.registered.toLocaleString();
+            console.log(statistics.registered);
+        } else {
+            setTimeout(updateCounters, interval);
+        }
+
+        if (currentParticipants >= statistics.participants) {
+            counterrElement.textContent = statistics.participants.toLocaleString();
+        }else {
+            setTimeout(updateCounters, interval);
+        }
+
+        if (currentTests >= statistics.tests) {
+            counterrrElement.textContent = statistics.tests.toLocaleString();
+        }else {
+            setTimeout(updateCounters, interval);
+        }
+    };
+
+    updateCounters();
+};
+
 
 hamburgerIcon.addEventListener('click', () => {
     hamburgerIcon.style.visibility = 'hidden'

@@ -135,7 +135,6 @@ const renderPages = (pagee) => {
         `
         
         elFormBtnPagination.insertAdjacentHTML('beforeend', pagination)
-        
     }
 
     
@@ -165,7 +164,7 @@ elNationalArea.addEventListener('click', () => {
     elList.innerHTML = '';
     elFormBtnPagination.innerHTML = '';
     elList.setAttribute('class', " text-4xl text-center font-bold")
-    elList.textContent = "Info yo'q"
+    const newLocal = elList.textContent = "Info yo'q"
     
     
     requestResearch(elSelectResearch.value); 
