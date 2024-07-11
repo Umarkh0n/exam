@@ -24,7 +24,7 @@ const requestVideoLesson = (slug) => {
   )
     .then((res) => res.json())
     .then((data) => {
-        renderLesson(data.results)
+      renderLesson(data.results);
       loading = false;
       elLoadingAnimation.classList.add("hidden");
     })
@@ -36,7 +36,6 @@ const requestVideoLesson = (slug) => {
 };
 
 const renderLesson = () => {
-    
   let pageNumber = 1;
   let pageSize = 9;
 
@@ -52,19 +51,20 @@ const renderLesson = () => {
       };
     },
     pageSize,
-    autoHidePrevious: true,
-    autoHideNext: true,
+    // autoHidePrevious: true,
+    // autoHideNext: true,
     beforePageOnClick: (_, count) => {
       pageNumber = +count;
     },
     totalNumberLocator: (response) => {
       return response.total;
     },
-    disableClassName: 'py-2 px-4',
-    activeClassName: 'font-black bg-[#4f95ff] !hover:bg-[#4f95ff]',
-    pageClassName: ' px-4 py-2 border-2 text-[#007bff]  hover:bg-[#e9ecef] transition',
-    prevClassName: 'py-2 px-4 ',
-    nextClassName: 'py-2 px-4 ',
+    disableClassName: "py-2 px-4 ",
+    activeClassName: "font-black bg-[#4f95ff] !hover:bg-[#4f95ff] ",
+    pageClassName:
+      "px-4 py-2 border-2 text-[#007bff]  hover:bg-[#e9ecef] transition cursor-pointer",
+    prevClassName: "py-2 px-5 cursor-pointer",
+    nextClassName: "py-2 px-5 cursor-pointer",
     callback: function (data) {
       elVideoLessonVideo.innerHTML = null;
 
@@ -109,45 +109,43 @@ const renderLesson = () => {
 
 renderLesson();
 
-  // arr.forEach(item => {
-  //     const html = `
-  //     <a target="_blank" href="${item.video}" class="flex flex-col justify-between cursor-pointer shadow mb-[40px]">
-  //     <div class="relative h-[230px] ">
-  //         <span class="z-10  !backdrop-blur-md py-3.5 pl-4 pr-3 left-[45%] top-[40%] shadow-xl span-logo absolute rounded-full ">
-  //             <img class="" src="./images/PlayIcon.svg" alt="">
-  //         </span>
-  //         <span class=" absolute left-5 top-5 py-1 px-4 span-rba z-10 text-white uppercase text-base">${item.direction}</span>
-  //         <div class="::after gradient-bg w-full h-full absolute"> </div>
-  //         <img class=" object-cover !bg-cover h-full w-full" src="https://stesting.uz/_nuxt/img/videoCover.e3ce9ad.jpg" alt="">
+// arr.forEach(item => {
+//     const html = `
+//     <a target="_blank" href="${item.video}" class="flex flex-col justify-between cursor-pointer shadow mb-[40px]">
+//     <div class="relative h-[230px] ">
+//         <span class="z-10  !backdrop-blur-md py-3.5 pl-4 pr-3 left-[45%] top-[40%] shadow-xl span-logo absolute rounded-full ">
+//             <img class="" src="./images/PlayIcon.svg" alt="">
+//         </span>
+//         <span class=" absolute left-5 top-5 py-1 px-4 span-rba z-10 text-white uppercase text-base">${item.direction}</span>
+//         <div class="::after gradient-bg w-full h-full absolute"> </div>
+//         <img class=" object-cover !bg-cover h-full w-full" src="https://stesting.uz/_nuxt/img/videoCover.e3ce9ad.jpg" alt="">
 
-  //         </div>
-  //     <div class="flex flex-col justify-between px-5 py-4 !grow">
-  //         <h3 class="mb-3 text-base font-bold line-clamp-2">
-  //             ${item.title}
-  //         </h3>
-  //         <ul class="flex items-center ">
-  //             <li class="flex items-center gap-2 mr-[30px]">
-  //                 <i>
-  //                     <img src="./images/eye.svg" alt="">
-  //                 </i>
-  //                 ${item.views}
-  //             </li>
-  //             <li class="flex items-center gap-2 mr-[30px]">
-  //                 <i>
-  //                     <img src="./images/calendar.svg" alt="">
-  //                 </i>
-  //                 ${item.date}
-  //             </li>
-  //         </ul>
-  //     </div>
-  // </a>
+//         </div>
+//     <div class="flex flex-col justify-between px-5 py-4 !grow">
+//         <h3 class="mb-3 text-base font-bold line-clamp-2">
+//             ${item.title}
+//         </h3>
+//         <ul class="flex items-center ">
+//             <li class="flex items-center gap-2 mr-[30px]">
+//                 <i>
+//                     <img src="./images/eye.svg" alt="">
+//                 </i>
+//                 ${item.views}
+//             </li>
+//             <li class="flex items-center gap-2 mr-[30px]">
+//                 <i>
+//                     <img src="./images/calendar.svg" alt="">
+//                 </i>
+//                 ${item.date}
+//             </li>
+//         </ul>
+//     </div>
+// </a>
 
-  //     `
-  //     elVideoLessonVideo.insertAdjacentHTML('beforeend', html)
+//     `
+//     elVideoLessonVideo.insertAdjacentHTML('beforeend', html)
 
-  // })
-
-
+// })
 
 // const renderPages = (pagee) => {
 //   for (let i = 0; i < pagee; i++) {

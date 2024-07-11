@@ -21,7 +21,6 @@ const requestStesting = () => {
         console.log(error);
 
     }).finally(() => {
-        // Ensure loading animation is hidden even if there's an error
         if (!loading) {
             elLoadingAnimation.classList.add("hidden");
         }

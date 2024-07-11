@@ -15,7 +15,7 @@ let areaButton = ""
 const requestResearch = (slug) => {
     loading = true
     elLoadingAnimation.classList.remove("hidden")
-    fetch(slug === 'all' ? `https://qlapi.stesting.uz/api/v1/research/?area=${areaButton}&?page=${page}&category__slug=` : `https://qlapi.stesting.uz/api/v1/research/?page=${page}&category__slug=${slug || ''}`).then(res => res.json()).then(data => {   
+    fetch(slug === 'all' ? `https://qlapi.stesting.uz/api/v1/research/?area=${areaButton}&?page=${page}&category__slug=` : `https://qlapi.stesting.uz/api/v1/research/?area=${areaButton}&?page=${page}&category__slug=${slug || ''}`).then(res => res.json()).then(data => {   
         renderResearch(data.results) || renderPages(data.total_pages)
         loading = false
         elLoadingAnimation.classList.add("hidden")
@@ -124,6 +124,7 @@ const renderSelectResearch = (arr) => {
 elSelectResearch.addEventListener('change', () => {
     const elselectValue = elSelectResearch.value
     elList.innerHTML = null
+    pagination.innerHTML = null
     requestResearch(elselectValue)
 })
 
@@ -164,7 +165,6 @@ elNationalArea.addEventListener('click', () => {
     elList.innerHTML = '';
     elFormBtnPagination.innerHTML = '';
     elList.setAttribute('class', " text-4xl text-center font-bold")
-    const newLocal = elList.textContent = "Info yo'q"
     
     
     requestResearch(elSelectResearch.value); 

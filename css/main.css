@@ -12,6 +12,11 @@
     
 }
 
+.pagination-section .paginationjs-next {
+    /* padding: 12px 20px;
+background: red; */
+}
+
 .res_container {
     max-width: 600px;
     margin: 0 auto;
