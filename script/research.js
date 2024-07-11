@@ -7,6 +7,7 @@ const elLoadingAnimation = document.querySelector('.animation')
 const responsiveMenu = document.querySelector('.responsive-menu')
 const hamburgerIcon = document.querySelector('.hamburger-icon')
 const xIcon = document.querySelector('.icon-x')
+const allInfoBox = document.querySelector('.all-info-box')
 
 let loading = false
 let page = 1
@@ -124,7 +125,14 @@ const renderSelectResearch = (arr) => {
 elSelectResearch.addEventListener('change', () => {
     const elselectValue = elSelectResearch.value
     elList.innerHTML = null
-    pagination.innerHTML = null
+    elFormBtnPagination.innerHTML = null
+
+    if(areaButton === 2){
+        elList.textContent = "Info yo'q"
+            
+    }
+
+    
     requestResearch(elselectValue)
 })
 
@@ -162,9 +170,12 @@ elNationalArea.addEventListener('click', () => {
     elInternationArea.setAttribute('class', "py-2.5 px-[65px] bg-[#e1edff] text-[#4f95ff] transition hover:text-black text-base font-semibold w-full mt-3 md:mt-0")
     elNationalArea.setAttribute('class', "py-2.5 px-[65px] text-white bg-[#4f95ff] transition  text-base font-semibold w-full mt-3 md:mt-0")
 
-    elList.innerHTML = '';
+    
     elFormBtnPagination.innerHTML = '';
     elList.setAttribute('class', " text-4xl text-center font-bold")
+    if(areaButton === 2){
+        elList.textContent = "Info yo'q"
+    }
     
     
     requestResearch(elSelectResearch.value); 
